@@ -1,7 +1,7 @@
 package billingsystem;
 
 public class BetaTarifario {
-    private String id;
+    private int id;
     private int maxChamadas;
     private double precoPorUnidadeLocal;
     private double precoPorUnidadeEstrangeiro;
@@ -12,10 +12,10 @@ public class BetaTarifario {
     public BetaTarifario() {}
     
     
-	public String getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public int getMaxChamadas() {

@@ -7,7 +7,7 @@ public class ChargingRequest {
 	private Date timestamp;
 	private String service;
 	private boolean roaming;
-	private int MSISDN;
+	private String MSISDN;
 	private int RSU;
 	
 	public ChargingRequest() {}
@@ -45,11 +45,11 @@ public class ChargingRequest {
 		this.roaming = roaming;
 	}
 
-	public int getMSISDN() {
+	public String getMSISDN() {
 		return MSISDN;
 	}
 
-	public void setMSISDN(int mSISDN) {
+	public void setMSISDN(String mSISDN) {
 		MSISDN = mSISDN;
 	}
 

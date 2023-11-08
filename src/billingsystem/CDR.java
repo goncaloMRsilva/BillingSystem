@@ -4,12 +4,12 @@ import java.util.Date;
 
 public class CDR {
     private Date timeStamp;
-    private int MSISDN;
-    private int service;
+    private String MSISDN;
+    private String service;
     private String chargingType; 
-    private int bucket;
+    private String bucket;
     private int counterValue;
-    private int tarifarioAplicado;
+    private String tarifarioAplicado;
     
     
     public CDR() {}
@@ -20,16 +20,16 @@ public class CDR {
 	public void setTimeStamp(Date timeStamp) {
 		this.timeStamp = timeStamp;
 	}
-	public int getMSISDN() {
+	public String getMSISDN() {
 		return MSISDN;
 	}
-	public void setMSISDN(int mSISDN) {
+	public void setMSISDN(String mSISDN) {
 		MSISDN = mSISDN;
 	}
-	public int getService() {
+	public String getService() {
 		return service;
 	}
-	public void setService(int service) {
+	public void setService(String service) {
 		this.service = service;
 	}
 	public String getChargingType() {
@@ -38,10 +38,10 @@ public class CDR {
 	public void setChargingType(String chargingType) {
 		this.chargingType = chargingType;
 	}
-	public int getBucket() {
+	public String getBucket() {
 		return bucket;
 	}
-	public void setBucket(int bucket) {
+	public void setBucket(String bucket) {
 		this.bucket = bucket;
 	}
 	public int getCounterValue() {
@@ -50,10 +50,10 @@ public class CDR {
 	public void setCounterValue(int counterValue) {
 		this.counterValue = counterValue;
 	}
-	public int getTarifarioAplicado() {
+	public String getTarifarioAplicado() {
 		return tarifarioAplicado;
 	}
-	public void setTarifarioAplicado(int tarifarioAplicado) {
+	public void setTarifarioAplicado(String tarifarioAplicado) {
 		this.tarifarioAplicado = tarifarioAplicado;
 	}
     
