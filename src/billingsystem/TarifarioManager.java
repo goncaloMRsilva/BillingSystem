@@ -13,7 +13,9 @@ public class TarifarioManager {
 	    int bucket2 = billingAccount.getBucket2();
 	    int bucket3 = billingAccount.getBucket3();
 	    boolean periodoNoturno = false;
-	    boolean diaSemana, redeLocal, fimDeSemana  = true;
+	    boolean diaSemana = true;
+	    boolean redeLocal = true;
+	    boolean fimDeSemana = true;
 	    
 	    
 	    if ("A".equals(servico)) {
@@ -28,11 +30,11 @@ public class TarifarioManager {
 	        
 	    } else if ("B".equals(servico)) {
 	    	
-	        if (temSaldoSuficienteNoBucketA(MSISDN, bucket1, roaming)) {
+	        if (serviceBtemSaldoSuficienteNoBucketA(MSISDN, bucket1, counterA, roaming, bucket3) && diaSemana && fimDeSemana && !periodoNoturno) {
 	            return "Beta1";
-	        } else if (temSaldoSuficienteNoBucketB(MSISDN, bucket2)) {
+	        } else if (serviceBtemSaldoSuficienteNoBucketB(MSISDN, bucket2, counterB, periodoNoturno) && redeLocal && bucket2 > 1000) {
 	            return "Beta2";
-	        } else if (temSaldoSuficienteNoBucketC(MSISDN, bucket3)) {
+	        } else if (serviceBtemSaldoSuficienteNoBucketC(MSISDN, bucket3, counterC, fimDeSemana) && roaming && bucket3 > 1000) {
 	            return "Beta3";
 	        }
 	        
@@ -83,6 +85,7 @@ public class TarifarioManager {
 	    if (bucketB >= custoPorMinuto) { // Verifica se o saldo no bucketB e suficiente para o tarifrio Alfa2
 	        return true;
 	    }
+	    
 	    return false;
 	}
 
@@ -104,8 +107,68 @@ public class TarifarioManager {
 	    if (bucketC >= custoPorMinuto) { // Verifica se o saldo no bucketC e suficiente para o tarifrio Alfa3
 	        return true;
 	    }
+	    
 	    return false;
 	}
+	
+	
+	private boolean serviceBtemSaldoSuficienteNoBucketA(String MSISDN, int bucketA, int counterA, boolean roaming, int bucketC) {
+	    int custoPorUnidade = roaming ? 20 : 10; 
+
+	    if (counterA > 10) {
+	        custoPorUnidade -= 2.5;
+	    }
+
+	    if (bucketC > 5000) {
+	        custoPorUnidade -= 1;
+	    }
+
+	    if (bucketA >= custoPorUnidade) { 
+	        return true;
+	    }
+	    
+	    return false;
+	}
+	
+	
+	private boolean serviceBtemSaldoSuficienteNoBucketB(String MSISDN, int bucketB, int counterB, boolean periodoNoturno) {
+	    double custoPorUnidade = periodoNoturno ? 2.5 : 5;
+
+	    if (counterB > 10) {
+	        custoPorUnidade -= 2;
+	    }
+
+	    if (bucketB > 1500) {
+	        custoPorUnidade -= 0.5;
+	    }
+
+	    if (bucketB >= custoPorUnidade) { 
+	    	return true;
+	    }
+	    
+	    return false;
+	}
+	
+	
+	private boolean serviceBtemSaldoSuficienteNoBucketC(String MSISDN, int bucketC, int counterC, boolean fimDeSemana) {
+	    int custoPorUnidade = fimDeSemana ? 25 : 10; 
+
+	    if (counterC > 10) {
+	        custoPorUnidade -= 2;
+	    }
+
+	    if (bucketC > 1500) {
+	        custoPorUnidade -= 0.5;
+	    }
+
+	    if (bucketC >= custoPorUnidade) {
+	        return true;
+	    }
+	    
+	    return false;
+	}
+
+
 
 
 }
